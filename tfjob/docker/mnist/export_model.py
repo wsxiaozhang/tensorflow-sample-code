@@ -19,7 +19,9 @@ from tensorflow.python.util import compat
 from tensorflow.examples.tutorials.mnist import input_data as mnist_input_data
 
 tf.app.flags.DEFINE_integer('model_version', 1, 'version number of the exported model.')
-tf.app.flags.DEFINE_string('checkpoint_path', None, 'Checkpoints path.')
+tf.app.flags.DEFINE_string('checkpoint_dir', None, 'The directory where checkpoints store.')
+tf.app.flags.DEFINE_string('checkpoint_step', 0, 'The checkpoint step to load and export.')
+tf.app.flags.DEFINE_string('checkpoint_path', None, 'Checkpoint file to be loaded and exported')
 FLAGS = tf.app.flags.FLAGS
 
 
@@ -31,13 +33,17 @@ def main(_):
   if FLAGS.model_version <= 0:
     print('Please specify a positive value for exported serveable version number.')
     sys.exit(-1)
-  if not FLAGS.checkpoint_path:
-    print('Please specify the correct path where checkpoints stored locally or in OSS.')
-    sys.exit(-1)
-
   checkpoint_basename="model.ckpt"
   default_meta_graph_suffix='.meta'
-  ckpt_path=os.path.join(FLAGS.checkpoint_path, checkpoint_basename + '-0')
+  if not FLAGS.checkpoint_path:
+    if not FLAGS.checkpoint_dir:
+      print('Please specify the correct directory where checkpoints are stored locally or in OSS.')
+      sys.exit(-1)
+    else:
+      ckpt_path = os.path.join(FLAGS.checkpoint_dir, checkpoint_basename + '-' + FLAGS.checkpoint_step)
+  else:
+    ckpt_path=FLAGS.checkpoint_path
+  print('Exporting model from checkpoint ', ckpt_path)
   meta_graph_file=ckpt_path + default_meta_graph_suffix
   with tf.Session() as new_sess:
 #   with new_sess.graph.as_default():
