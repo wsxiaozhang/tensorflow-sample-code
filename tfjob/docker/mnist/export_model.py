@@ -40,7 +40,7 @@ def main(_):
       print('Please specify the correct directory where checkpoints are stored locally or in OSS.')
       sys.exit(-1)
     else:
-      ckpt_path = os.path.join(FLAGS.checkpoint_dir, checkpoint_basename + '-' + FLAGS.checkpoint_step)
+      ckpt_path = os.path.join(FLAGS.checkpoint_dir, checkpoint_basename + '-' + str(FLAGS.checkpoint_step))
   else:
     ckpt_path=FLAGS.checkpoint_path
   print('Exporting model from checkpoint ', ckpt_path)
