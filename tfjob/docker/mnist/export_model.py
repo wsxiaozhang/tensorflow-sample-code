@@ -20,7 +20,7 @@ from tensorflow.examples.tutorials.mnist import input_data as mnist_input_data
 
 tf.app.flags.DEFINE_integer('model_version', 1, 'version number of the exported model.')
 tf.app.flags.DEFINE_string('checkpoint_dir', None, 'The directory where checkpoints store.')
-tf.app.flags.DEFINE_string('checkpoint_step', 0, 'The checkpoint step to load and export.')
+tf.app.flags.DEFINE_integer('checkpoint_step', 0, 'The checkpoint step to load and export.')
 tf.app.flags.DEFINE_string('checkpoint_path', None, 'Checkpoint file to be loaded and exported')
 FLAGS = tf.app.flags.FLAGS
 
