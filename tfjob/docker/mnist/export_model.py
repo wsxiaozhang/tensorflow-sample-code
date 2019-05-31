@@ -43,7 +43,7 @@ def main(_):
       ckpt_path = os.path.join(FLAGS.checkpoint_dir, checkpoint_basename + '-' + str(FLAGS.checkpoint_step))
   else:
     ckpt_path=FLAGS.checkpoint_path
-  print('Exporting model from checkpoint ', ckpt_path)
+  print 'Exporting model from checkpoint ', ckpt_path
   meta_graph_file=ckpt_path + default_meta_graph_suffix
   with tf.Session() as new_sess:
 #   with new_sess.graph.as_default():
